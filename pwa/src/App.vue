@@ -123,6 +123,10 @@ hr {
   text-decoration: none;
 }
 
+.subtle-link:hover {
+  color: #5252b1;
+}
+
 .splitleftandright {
   display: flex;
   justify-content: space-between;

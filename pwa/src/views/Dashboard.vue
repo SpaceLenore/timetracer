@@ -116,7 +116,7 @@
                 <span>
                   <a
                     href="#"
-                    class="subtile-link link-besides-right"
+                    class="subtle-link link-besides-right"
                     @click.prevent="timestamp.update = false"
                     >Cancel</a
                   >
@@ -320,6 +320,34 @@ export default {
           title: timestamp.title,
           start: timestamp.start,
           stop: timestamp.stop
+        }),
+        method: "POST"
+      })
+        .then(res => {
+          return res.json();
+        })
+        .then(data => {
+          if (data.status == "error") {
+            //Throw error
+            this.error = data.msg;
+          } else {
+            this.getData();
+            this.getSummary();
+          }
+        })
+        .catch(err => {
+          console.log(err);
+          this.error = err.message;
+        });
+    },
+    deleteTimestamp(id) {
+      fetch(this.$store.state.server + "/delete", {
+        headers: {
+          Authorization: this.$store.state.token,
+          "Content-Type": "application/json"
+        },
+        body: JSON.stringify({
+          id: id
         }),
         method: "POST"
       })
