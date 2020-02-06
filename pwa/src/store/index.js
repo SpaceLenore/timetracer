@@ -6,7 +6,8 @@ Vue.use(Vuex);
 export default new Vuex.Store({
   state: {
     username: undefined,
-    token: undefined
+    token: localStorage.getItem("token") || undefined,
+    server: process.env.API || "//localhost:8000"
   },
   mutations: {
     setLoginStatus(state, payload) {
