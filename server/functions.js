@@ -99,11 +99,11 @@ const setStopTime = async (ts) => {
 }
 
 const updateTimestamp = async (ts) => {
-    if (!ts.id || !ts.title || !ts.start || !ts.stop) {
+    if (!ts.id || !ts.title || !ts.start || !ts.stop || !ts.username) {
         console.log(ts)
         return false
     }
-    return db.exec("UPDATE timestamps SET title=?, start=?, stop=? WHERE rowid=?", [ts.title, ts.start, ts.stop, ts.id])
+    return db.exec("UPDATE timestamps SET title=?, start=?, stop=? WHERE rowid=? AND username=?", [ts.title, ts.start, ts.stop, ts.id, ts.username])
     .then(() => {
         return true
     })
