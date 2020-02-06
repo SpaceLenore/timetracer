@@ -71,20 +71,78 @@
             v-for="timestamp in timestamps"
             v-bind:key="timestamp.rowid"
           >
-            <div class="splitleftandright">
+            <div v-if="timestamp.update">
+              <div class="splitleftandright">
+                <span></span>
+                <span>
+                  <!-- TODO: Write Delete button functionality -->
+                  <a
+                    href="#"
+                    class="subtle-link"
+                    @click.prevent="deleteTimestamp(timestamp.rowid)"
+                    >Delete</a
+                  ><br />
+                </span>
+              </div>
+              Start:
+              <input
+                class="input-type input-text"
+                type="datetime"
+                v-model="timestamp.start"
+              /><br />
+              Stop:
+              <input
+                class="input-type input-text"
+                type="datetime"
+                v-model="timestamp.stop"
+              />
+            </div>
+            <div class="splitleftandright" v-else>
               <span class="smaller-text">
                 {{ formatFullDateTime(timestamp.start) }} ->
                 {{ formatFullDateTime(timestamp.stop) }}
               </span>
               <span class="smaller-text"> {{ getHourDiff(timestamp) }} H </span>
             </div>
-            <div class="splitleftandright">
+            <div v-if="timestamp.update">
+              Title:
+              <input
+                class="input-type input-text"
+                type="text"
+                v-model="timestamp.title"
+              /><br />
+              <div class="splitleftandright">
+                <span></span>
+                <span>
+                  <a
+                    href="#"
+                    class="subtile-link link-besides-right"
+                    @click.prevent="timestamp.update = false"
+                    >Cancel</a
+                  >
+                  <input
+                    type="button"
+                    class="input-type input-button"
+                    value="SAVE"
+                    @click.prevent="updateTimestamp(timestamp)"
+                  />
+                </span>
+              </div>
+            </div>
+            <div class="splitleftandright" v-else>
               <div class="timestamp-title">
                 {{ timestamp.title }}
               </div>
               <span>
-                <!-- TODO: Create an update function -->
-                <a href="#" class="subtle-link" @click.prevent="">Update</a>
+                <!-- TODO: Rewrite update form to use a date-picker and a time picker -->
+                <a
+                  href="#"
+                  class="subtle-link"
+                  @click.prevent="timestamp.update = true"
+                  v-if="timestamp.update == false"
+                >
+                  Update
+                </a>
               </span>
             </div>
             <hr />
@@ -178,6 +236,7 @@ export default {
             this.timers = [];
             for (let i = 0; i < data.data.length; i++) {
               if (data.data[i].stop != null) {
+                data.data[i].update = false;
                 this.timestamps.push(data.data[i]);
               } else {
                 this.timers.push(data.data[i]);
@@ -249,6 +308,37 @@ export default {
           console.log(err);
           this.error = err.message;
         });
+    },
+    updateTimestamp(timestamp) {
+      fetch(this.$store.state.server + "/update", {
+        headers: {
+          Authorization: this.$store.state.token,
+          "Content-Type": "application/json"
+        },
+        body: JSON.stringify({
+          id: timestamp.rowid,
+          title: timestamp.title,
+          start: timestamp.start,
+          stop: timestamp.stop
+        }),
+        method: "POST"
+      })
+        .then(res => {
+          return res.json();
+        })
+        .then(data => {
+          if (data.status == "error") {
+            //Throw error
+            this.error = data.msg;
+          } else {
+            this.getData();
+            this.getSummary();
+          }
+        })
+        .catch(err => {
+          console.log(err);
+          this.error = err.message;
+        });
     }
   },
   beforeMount() {
@@ -285,5 +375,8 @@ export default {
   font-size: 1.2rem;
   padding: 0.5rem 0;
   font-weight: 400;
+}
+.link-besides-right {
+  margin-right: 1rem;
 }
 </style>
