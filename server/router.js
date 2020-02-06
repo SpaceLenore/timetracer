@@ -60,8 +60,8 @@ router.get('/data', async (req, res, next) => {
 
 router.get('/summary', async (req, res, next) => {
     let tryGetSummary = await f.count(req.body.username)
-    if (tryGetSummary) {
-        res.json({status: "success", hours:tryGetSummary})
+    if (tryGetSummary && tryGetSummary !== 0) {
+        res.json({status: "success", hours: tryGetSummary})
     } else {
         res.status(400).json({status: "error",  msg: "failed to fetch summary for user " + req.body.username})
     }
@@ -90,7 +90,7 @@ router.post('/stop', async (req, res, next) => {
     if (tryStopTimer) {
         res.json({status: "success", msg: "timer has been stopped"})
     } else {
-        res.status(400).json({status: "error", msg: "failed to start timer"})
+        res.status(400).json({status: "error", msg: "failed to stop timer"})
     }
 })
 
