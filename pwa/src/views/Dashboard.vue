@@ -169,7 +169,11 @@
 export default {
   data() {
     return {
-      summary: undefined,
+      summary: {
+        week: 0,
+        month: 0,
+        total: 0
+      },
       timers: [],
       timestamps: [],
       displayNewTimer: false,
