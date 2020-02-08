@@ -75,7 +75,6 @@
               <div class="splitleftandright">
                 <span></span>
                 <span>
-                  <!-- TODO: Write Delete button functionality -->
                   <a
                     href="#"
                     class="subtle-link"
@@ -242,6 +241,8 @@ export default {
                 this.timers.push(data.data[i]);
               }
             }
+            this.timestamps = this.timestamps.reverse();
+            this.timers = this.timers.reverse();
           }
         })
         .catch(err => {
