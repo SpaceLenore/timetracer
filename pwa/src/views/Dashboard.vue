@@ -227,7 +227,6 @@ export default {
           }
         })
         .catch(err => {
-          console.log(err);
           this.error = err.message;
         });
     },
@@ -261,7 +260,6 @@ export default {
           }
         })
         .catch(err => {
-          console.log(err);
           this.error = err.message;
         });
     },
@@ -293,7 +291,6 @@ export default {
           }
         })
         .catch(err => {
-          console.log(err);
           this.error = err.message;
         });
     },
@@ -321,7 +318,6 @@ export default {
           }
         })
         .catch(err => {
-          console.log(err);
           this.error = err.message;
         });
     },
@@ -352,7 +348,6 @@ export default {
           }
         })
         .catch(err => {
-          console.log(err);
           this.error = err.message;
         });
     },
@@ -380,7 +375,6 @@ export default {
           }
         })
         .catch(err => {
-          console.log(err);
           this.error = err.message;
         });
     }
