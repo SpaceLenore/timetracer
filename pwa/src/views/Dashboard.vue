@@ -5,7 +5,18 @@
       <div class="half half-left">
         <div class="card">
           <h2>Hours</h2>
-          {{ summary }}
+          <div class="hour-report">
+            <span class="hour-report-title">This week:</span>
+            <span class="hour-report-time">{{ summary.week }}</span>
+          </div>
+          <div class="hour-report">
+            <span class="hour-report-title">This month:</span>
+            <span class="hour-report-time">{{ summary.month }}</span>
+          </div>
+          <div class="hour-report">
+            <span class="hour-report-title">Total:</span>
+            <span class="hour-report-time">{{ summary.total }}</span>
+          </div>
         </div>
         <div class="card">
           <h2>Timers</h2>
@@ -208,7 +219,7 @@ export default {
             //Throw error
             this.error = data.msg;
           } else {
-            this.summary = data.hours;
+            this.summary = data;
           }
         })
         .catch(err => {
@@ -407,5 +418,23 @@ export default {
 }
 .link-besides-right {
   margin-right: 1rem;
+}
+
+.hour-report {
+  display: flex;
+  justify-content: center;
+  padding: 0.25rem;
+}
+
+.hour-report-title {
+  flex: 1;
+  text-align: right;
+  padding-right: 0.25rem;
+  font-weight: 500;
+}
+.hour-report-time {
+  flex: 1;
+  text-align: left;
+  padding-left: 0.25rem;
 }
 </style>
