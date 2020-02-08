@@ -1,4 +1,5 @@
 const argon2    = require('argon2')
+const moment    = require('moment')
 const db        = require('./database')
 
 const createUser = async (usr) => {
@@ -116,17 +117,29 @@ const updateTimestamp = async (ts) => {
 const count = async (username) => {
     return db.fetchAll("SELECT rowid, title, start, stop FROM timestamps WHERE username IS ?", [username])
     .then((res) => {
-        let hours = 0
+        let hoursOfAllTime = 0
+        let hoursInMonth = 0
+        let hoursInWeek = 0
+        let currentWeek = moment().format('W')
+        let currentMonth = moment().format('M')
         for (let i = 0; i < res.length; i++) {
             if (res[i].stop === null) {
                 continue
             }
-            let start   = new Date(res[i].start)
-            let stop    = new Date(res[i].stop)
-            let diff    = (stop - start) / 3600000
-            hours += diff
+            let end = moment(res[i].stop)
+            hoursOfAllTime += moment.duration(end.diff(res[i].start)).asHours()
+            if(moment(res[i].start).format('M') == currentMonth) {
+                hoursInMonth += moment.duration(end.diff(res[i].start)).asHours()
+            }
+            if(moment(res[i].start).format('W') == currentWeek) {
+                hoursInWeek += moment.duration(end.diff(res[i].start)).asHours()
+            }
         }
-        return hours
+        return {
+            total: hoursOfAllTime,
+            month: hoursInMonth,
+            week: hoursInWeek
+        }
     })
     .catch((err) => {
         console.warn(err)

@@ -1,5 +1,8 @@
-# Timetracer
-> A simple/minimalistic time tracking system
+<p align="center">
+  <img src="media/logo_transparent.png" height="80px">
+  <h1 align="center">Timetracer</h1>
+  <i align="center">A simple/minimalistic time tracking system</i
+</p>
 
 ## Timetracer-Recall - API Server
 A NodeJS API server
@@ -8,4 +11,4 @@ A NodeJS API server
 A progressive web application client for desktop and phone
 
 ## Author
-Created by SpaceLenore
+Created by [SpaceLenore](github.com/SpaceLenore)

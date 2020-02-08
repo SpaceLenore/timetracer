@@ -61,7 +61,8 @@ router.get('/data', async (req, res, next) => {
 router.get('/summary', async (req, res, next) => {
     let tryGetSummary = await f.count(req.body.username)
     if (tryGetSummary && tryGetSummary !== 0) {
-        res.json({status: "success", hours: tryGetSummary})
+        tryGetSummary.status = "success"
+        res.json(tryGetSummary)
     } else {
         res.status(400).json({status: "error",  msg: "failed to fetch summary for user " + req.body.username})
     }
