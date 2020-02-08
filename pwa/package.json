@@ -3,9 +3,10 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
-    "serve": "API=//localhost:8008 vue-cli-service serve",
+    "serve": "API=/api vue-cli-service serve",
     "build": "vue-cli-service build",
-    "lint": "vue-cli-service lint"
+    "lint": "vue-cli-service lint",
+    "deploy": "API=/api npm run build && rsync -av dist/* deploy@hackerti.me:/home/deploy/htdocs/tid.dystopi.nu/"
   },
   "dependencies": {
     "core-js": "^3.4.4",

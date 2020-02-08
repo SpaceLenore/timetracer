@@ -7,7 +7,7 @@ export default new Vuex.Store({
   state: {
     username: undefined,
     token: localStorage.getItem("token") || undefined,
-    server: process.env.API || "//localhost:8000"
+    server: process.env.API || "/api"
   },
   mutations: {
     setLoginStatus(state, payload) {

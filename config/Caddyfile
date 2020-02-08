@@ -1,0 +1,9 @@
+sub.domain.tld {
+    root <foldername>
+    gzip
+    proxy /api localhost:8000
+    rewrite {
+        if {path} not /api
+        to /
+    }
+}

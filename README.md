@@ -10,5 +10,8 @@ A NodeJS API server
 ## Timetracer-Blink - PWA Client
 A progressive web application client for desktop and phone
 
+## Config folder
+Contains a template for the configuration of a Caddy web server
+
 ## Author
 Created by [SpaceLenore](github.com/SpaceLenore)
