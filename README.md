@@ -1,7 +1,7 @@
 <p align="center">
   <img src="media/logo_transparent.png" height="80px">
   <h1 align="center">Timetracer</h1>
-  <i align="center">A simple/minimalistic time tracking system</i
+  <p align="center"><i>A simple/minimalistic time tracking system</i></p>
 </p>
 
 ## Timetracer-Recall - API Server
