@@ -1,6 +1,12 @@
 <template>
   <div id="dashboard">
-    <h1 class="page-title">Dashboard</h1>
+    <div class="dashboard-header">
+      <span class="header-part edge-left">Timetracer Blink v1.0</span>
+      <h1 class="page-title header-part">Dashboard</h1>
+      <span class="header-part edge-right">
+        <a href="#" class="subtle-link" @click.prevent="logout()">Logout</a>
+      </span>
+    </div>
     <div class="half-split">
       <div class="half half-left">
         <div class="card">
@@ -377,6 +383,10 @@ export default {
         .catch(err => {
           this.error = err.message;
         });
+    },
+    logout() {
+      this.$store.commit("unsetLoginStatus");
+      this.$router.push("/login");
     }
   },
   beforeMount() {
@@ -394,6 +404,26 @@ export default {
 </script>
 
 <style>
+.dashboard-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.header-part {
+  flex: 1;
+}
+
+.edge-left {
+  padding-left: 1rem;
+  text-align: left;
+}
+
+.edge-right {
+  padding-right: 1rem;
+  text-align: right;
+}
+
 .dismiss-new-timer {
   margin-left: 1rem;
   text-decoration: none;
