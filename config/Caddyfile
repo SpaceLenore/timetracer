@@ -1,9 +1,11 @@
 sub.domain.tld {
     root <foldername>
     gzip
-    proxy /api localhost:8000
-    rewrite {
-        if {path} not /api
-        to /
-    }
+	rewrite {
+	 	if {path} not_starts_with /api
+        	to {path} {path}/ /index.html
+    	}
+	proxy /api localhost:8000 {
+		without /api
+	}
 }
